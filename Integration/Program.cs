@@ -18,6 +18,11 @@ public abstract class Program
         ThreadPool.QueueUserWorkItem(_ => service.SaveItem("b"));
         ThreadPool.QueueUserWorkItem(_ => service.SaveItem("c"));
 
+        // the implemented solution allows parallel storage of items with different content.
+        ThreadPool.QueueUserWorkItem(_ => service.SaveItem("d"));
+        ThreadPool.QueueUserWorkItem(_ => service.SaveItem("e"));
+        ThreadPool.QueueUserWorkItem(_ => service.SaveItem("f"));
+
         Thread.Sleep(5000);
 
         Console.WriteLine("Everything recorded:");
