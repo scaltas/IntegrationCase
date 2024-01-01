@@ -1,3 +1,5 @@
+Note: Did not implement a distributed database for storing items. since all instances use their own memory to store items, we don't expect duplicate checks to work properly in this solution.
+
 Weaknesses in the Solution:
 
 1. Lack of Error Handling in DistributedSemaphore
