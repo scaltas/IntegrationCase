@@ -6,10 +6,15 @@ public abstract class Program
 {
     public static void Main(string[] args)
     {
-        var service = new ItemIntegrationService();
-        
+        // Replace these values with your actual Redis connection string and key.
+        string redisConnectionString = "<Redis-Connection-String>";
+
+        var distributedSemaphore = new DistributedSemaphore(redisConnectionString);
+        var service = new ItemIntegrationService(distributedSemaphore);
+
         ThreadPool.QueueUserWorkItem(_ => service.SaveItem("a"));
         ThreadPool.QueueUserWorkItem(_ => service.SaveItem("b"));
+        ThreadPool.QueueUserWorkItem(_ => service.SaveItem("c"));
         ThreadPool.QueueUserWorkItem(_ => service.SaveItem("c"));
 
         Thread.Sleep(500);
@@ -17,6 +22,9 @@ public abstract class Program
         ThreadPool.QueueUserWorkItem(_ => service.SaveItem("a"));
         ThreadPool.QueueUserWorkItem(_ => service.SaveItem("b"));
         ThreadPool.QueueUserWorkItem(_ => service.SaveItem("c"));
+        ThreadPool.QueueUserWorkItem(_ => service.SaveItem("d"));
+        ThreadPool.QueueUserWorkItem(_ => service.SaveItem("e"));
+        ThreadPool.QueueUserWorkItem(_ => service.SaveItem("f"));
 
         Thread.Sleep(5000);
 
